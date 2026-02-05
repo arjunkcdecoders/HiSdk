@@ -1,16 +1,15 @@
 plugins {
     alias(libs.plugins.android.library)
+    id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
     namespace = "com.example.hi_sdk"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -24,17 +23,22 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
-dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+afterEvaluate {
+    extensions.configure<PublishingExtension>("publishing") {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.arjunkcdecoders"
+                artifactId = "hi_sdk"
+                version = "1.0.2"
+            }
+        }
+    }
 }
