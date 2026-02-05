@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.hi_sdk"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -52,7 +52,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.arjunkcdecoders"
                 artifactId = "hi_sdk"
-                version = "1.0.4"
+                version = "1.0.5"
             }
         }
     }
